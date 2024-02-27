@@ -31,9 +31,12 @@ import (
 	"golang.org/x/crypto/ripemd160"
 )
 
-// run script verifier
-const verify = true
-const stepDbg = false
+const (
+	// run script verifier
+	verify = true
+	// run script debug
+	stepDbg = true
+)
 
 const txVersion = 2
 
