@@ -386,6 +386,8 @@ func walletPort(params *chaincfg.Params) string {
 		return "8332"
 	case &chaincfg.TestNet3Params:
 		return "18332"
+	case &chaincfg.RegressionNetParams:
+		return "18443"
 	default:
 		return ""
 	}
@@ -693,8 +695,8 @@ func buildSegwitContract(c *rpc.Client, args *contractArgs) (*builtContract, err
 	}
 
 	contract, err := MakeContract(
-		refundAddr,
 		args.them,
+		refundAddr,
 		args.secretHash,
 		args.locktime,
 		true, //segwit
@@ -1030,7 +1032,7 @@ func (cmd *redeemCmd) runCommand(c *rpc.Client) error {
 
 	// NewTxSigHashes uses the PrevOutFetcher only for detecting a taproot
 	// output, so we can provide a dummy that always returns a wire.TxOut
-	// with a nil pkScript that so IsPayToTaproot returns false.
+	// with a nil pkScript so that IsPayToTaproot returns false.
 	prevOutFetcher := new(txscript.CannedPrevOutputFetcher)
 	sigHashes := txscript.NewTxSigHashes(redeemTx, prevOutFetcher)
 
